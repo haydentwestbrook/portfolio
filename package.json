@@ -1,0 +1,38 @@
+{
+  "name": "portfolio",
+  "version": "0.0.1",
+  "description": "Professional portfolio for Hayden Westbrook",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haydentwestbrook/portfolio.git"
+  },
+  "keywords": [
+    "portfolio",
+    "fontend",
+    "react",
+    "software",
+    "engineer",
+    "web",
+    "development",
+    "javascript",
+    "typescript",
+    "astro"
+  ],
+  "author": "Hayden Westbrook",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haydentwestbrook/portfolio/issues"
+  },
+  "homepage": "https://github.com/haydentwestbrook/portfolio#readme",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.8.0"
+  }
+}
