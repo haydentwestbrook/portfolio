@@ -1,8 +1,49 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Content } from "../content/about.md";
+import { Content as About } from "../content/about.md";
+import { Content as Contact } from "../content/contact.md";
+import { Content as Projects } from "../content/projects.md";
+import ProjectList from "../components/ProjectList/ProjectList";
+
+// Define an array of projects
+const projects = [
+  {
+    name: "Project One",
+    description: "Description of Project One.",
+    link: "https://example.com/project-one",
+    image: "/images/project-one.jpg",
+  },
+  {
+    name: "Project Two",
+    description: "Description of Project Two.",
+    link: "https://example.com/project-two",
+    image: "/images/project-two.jpg",
+  },
+  // Add more projects as needed
+];
 ---
 
 <Layout>
-  <Content />
+  <About />
+  <ProjectList projects={projects} client:load />
+  <Contact />
 </Layout>
+
+<style>
+  .projects-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .project-card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .project-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+</style>
