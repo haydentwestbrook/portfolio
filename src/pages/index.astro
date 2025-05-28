@@ -24,26 +24,15 @@ const projects = [
 ---
 
 <Layout>
-  <About />
-  <ProjectList projects={projects} client:load />
-  <Contact />
+  <main>
+    <section>
+      <About />
+    </section>
+    <section>
+      <ProjectList projects={projects} client:load />
+    </section>
+  </main>
+  <aside>
+    <Contact />
+  </aside>
 </Layout>
-
-<style>
-  .projects-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
-  }
-  .project-card {
-    border: 1px solid #ccc;
-    padding: 16px;
-    border-radius: 8px;
-    text-align: center;
-  }
-  .project-card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
-</style>
