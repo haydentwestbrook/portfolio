@@ -4,19 +4,52 @@ import About from '../components/About.astro';
 import Contact from '../components/Contact.astro';
 import ProjectList from '../components/ProjectList/ProjectList';
 import HeroImage from '../components/HeroImage/HeroImage';
-import { Content as ProjectsContent, frontmatter as projectsData } from '../content/projects.md';
+import { getCollection } from 'astro:content';
 
-const { projects } = projectsData;
+// Fetch projects from content collection
+const projects = (await getCollection('projects')).map(entry => ({
+  title: entry.data.title,
+  description: entry.data.description,
+  image: entry.data.image,
+  technologies: entry.data.technologies,
+  liveUrl: entry.data.liveUrl,
+  githubUrl: entry.data.githubUrl,
+  date: entry.data.date
+}));
+
+// Generate metadata for SEO
+const title = "Hayden Westbrook - Portfolio";
+const description = "Software Developer & Engineer specializing in web development and software engineering.";
+
+// Handle canonical URL based on environment
+let canonicalURL;
+try {
+  if (Astro.site) {
+    canonicalURL = new URL(Astro.url.pathname, Astro.site);
+  }
+} catch (error) {
+  console.warn('Could not generate canonical URL:', error);
+}
+
+// Development-specific settings
+const isDev = import.meta.env.DEV;
+const imageUrl = isDev 
+  ? "https://placehold.co/1200x400/1a365d/ffffff?text=Development+Mode"
+  : "https://placehold.co/1200x400/1a365d/ffffff?text=Hayden+Westbrook";
 ---
 
-<Layout title="Hayden Westbrook - Portfolio">
+<Layout 
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+>
   <main class="container mx-auto px-4 py-8">
     <HeroImage 
-      imageUrl="https://placehold.co/1200x400/1a365d/ffffff?text=Hayden+Westbrook"
+      imageUrl={imageUrl}
       altText="Hayden Westbrook"
       height="400px"
       className="mb-16"
-      client:load
+      client:visible
     />
 
     <section class="mb-16 text-center">
@@ -31,10 +64,7 @@ const { projects } = projectsData;
 
     <section class="mb-16">
       <h2 class="text-3xl font-bold text-primary mb-6">Projects</h2>
-      <div class="prose prose-lg max-w-none mb-8">
-        <ProjectsContent />
-      </div>
-      <ProjectList projects={projects} client:load />
+      <ProjectList projects={projects} client:visible />
     </section>
 
     <section class="mb-16">
@@ -43,3 +73,22 @@ const { projects } = projectsData;
     </section>
   </main>
 </Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+</style>

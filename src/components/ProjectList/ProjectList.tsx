@@ -1,27 +1,18 @@
 // src/components/ProjectList/ProjectList.tsx
 import React from 'react';
-import Carousel from '../Carousel/Carousel';
-import Project from '../Project/Project';
-import type ProjectType from '../../types/Project';
+import ProjectCard from '../ProjectCard/ProjectCard';
+import type { ProjectCard as ProjectCardType } from '../../types/ProjectCard';
 
 interface ProjectListProps {
-  projects: ProjectType[];
+  projects: ProjectCardType[];
 }
 
 const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4">
-      <Carousel
-        slidesToShow={1}
-        slidesToScroll={1}
-        gap={0}
-        showIndicators={true}
-        showArrows={true}
-      >
-        {projects.map((project) => (
-          <Project key={project.id} project={project} />
-        ))}
-      </Carousel>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project, index) => (
+        <ProjectCard key={index} project={project} />
+      ))}
     </div>
   );
 };

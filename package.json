@@ -27,8 +27,8 @@
   "homepage": "https://github.com/haydentwestbrook/portfolio#readme",
   "type": "module",
   "scripts": {
-    "start": "astro dev",
-    "build": "astro build",
+    "start": "cross-env NODE_ENV=development astro dev",
+    "build": "cross-env NODE_ENV=production astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest",
@@ -51,6 +51,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/testing-library__jest-dom": "^5.14.9",
     "@types/testing-library__react": "^10.0.1",
+    "cross-env": "^7.0.3",
     "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
     "vitest": "^3.2.3"

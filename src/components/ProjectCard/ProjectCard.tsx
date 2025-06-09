@@ -1,12 +1,12 @@
 // src/components/Project/Project.tsx
 import React from 'react';
-import type { Project as ProjectType } from '../../content/projects';
+import type { ProjectCard } from '../../types/ProjectCard';
 
 interface ProjectProps {
-  project: ProjectType;
+  project: Project;
 }
 
-const Project: React.FC<ProjectProps> = ({ project }) => {
+const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
   return (
     <article className="h-full">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
@@ -23,16 +23,18 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
         </div>
         <div className="p-6 flex-grow">
           <p className="text-gray-600 mb-4">{project.description}</p>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+          {project.technologies && project.technologies.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.technologies.map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="flex gap-4 mt-auto">
             {project.liveUrl && (
               <a
@@ -61,4 +63,4 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
   );
 };
 
-export default Project;
+export default ProjectCard;

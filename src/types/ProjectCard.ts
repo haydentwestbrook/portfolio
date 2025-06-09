@@ -1,9 +1,9 @@
-export default interface Project {
-  id: string;
+export type ProjectCard = {
   title: string;
   description: string;
   image: string;
   technologies: string[];
-  githubUrl?: string;
   liveUrl?: string;
-} 
+  githubUrl?: string;
+  date?: Date;
+}; 
