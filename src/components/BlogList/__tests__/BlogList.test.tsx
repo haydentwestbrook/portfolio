@@ -20,14 +20,14 @@ vi.spyOn(Date.prototype, 'toLocaleDateString').mockImplementation(function(this:
 
 const mockPosts = [
   {
-    title: 'Test Post 1',
-    description: 'This is a test post',
+      title: 'Test Post 1',
+      description: 'This is a test post',
     date: '2024-03-20',
     slug: 'test-post-1'
   },
   {
-    title: 'Test Post 2',
-    description: 'Another test post',
+      title: 'Test Post 2',
+      description: 'Another test post',
     date: '2024-03-21',
     slug: 'test-post-2'
   }

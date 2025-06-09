@@ -1,28 +1,27 @@
 import React from 'react';
+import type { IconProps, IconName } from '@/types/components';
+import type { BaseProps } from '@/types/common';
 
-type IconName = 
-  | 'chevron-left'
-  | 'chevron-right'
-  | 'loading'
-  | 'download'
-  | 'github'
-  | 'linkedin'
-  | 'email'
-  | 'external-link';
-
-interface IconProps extends React.SVGProps<SVGSVGElement> {
-  name: IconName;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  className?: string;
-}
-
-const Icon: React.FC<IconProps> = ({
+/**
+ * Icon component that renders SVG icons with consistent sizing and styling.
+ * 
+ * @example
+ * ```tsx
+ * <Icon name="github" size="md" className="text-gray-600" />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * <Icon name="loading" size="lg" className="animate-spin" />
+ * ```
+ */
+const Icon = React.forwardRef<SVGSVGElement, IconProps>(({
   name,
   size = 'md',
   className = '',
   ...props
-}) => {
-  const sizes = {
+}, ref) => {
+  const sizes: Record<NonNullable<IconProps['size']>, string> = {
     sm: 'h-4 w-4',
     md: 'h-6 w-6',
     lg: 'h-8 w-8',
@@ -103,6 +102,7 @@ const Icon: React.FC<IconProps> = ({
 
   return (
     <svg
+      ref={ref}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
@@ -113,6 +113,8 @@ const Icon: React.FC<IconProps> = ({
       {icons[name]}
     </svg>
   );
-};
+});
 
-export { Icon }; 
+Icon.displayName = 'Icon';
+
+export default Icon; 

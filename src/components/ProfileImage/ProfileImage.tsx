@@ -1,18 +1,35 @@
 import React from 'react';
 import type { ImageMetadata } from 'astro';
+import type { ProfileImageProps } from '@/types/components';
+import type { BaseProps } from '@/types/common';
 
-interface ProfileImageProps {
-  imageUrl: string | ImageMetadata;
-  altText: string;
-  size?: string;
-  className?: string;
-}
-
-export const ProfileImage: React.FC<ProfileImageProps> = ({
+/**
+ * ProfileImage component that displays a circular profile image with responsive sizing
+ * and optimized image loading.
+ * 
+ * @example
+ * ```tsx
+ * <ProfileImage 
+ *   imageUrl={profileImage} 
+ *   altText="Profile picture" 
+ *   className="hover:scale-105" 
+ * />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * <ProfileImage 
+ *   imageUrl="/images/profile.jpg" 
+ *   altText="Profile picture" 
+ * />
+ * ```
+ */
+const ProfileImage = React.forwardRef<HTMLDivElement, ProfileImageProps>(({
   imageUrl,
   altText,
-  className = ''
-}) => {
+  className = '',
+  ...props
+}, ref) => {
   // Generate srcset for different sizes if the image is imported
   const srcSet = typeof imageUrl === 'string' ? undefined : `
     ${imageUrl.src.replace('.jpg', '-200.webp')} 200w,
@@ -21,7 +38,11 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
   `;
 
   return (
-    <div className="flex justify-center items-center w-full py-4 sm:py-6 md:py-8">
+    <div 
+      ref={ref}
+      className="flex justify-center items-center w-full py-4 sm:py-6 md:py-8"
+      {...props}
+    >
       <div 
         className={`relative rounded-full overflow-hidden border-4 border-primary shadow-xl transition-all duration-300 ${className}`}
         style={{ 
@@ -40,4 +61,8 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
       </div>
     </div>
   );
-}; 
+});
+
+ProfileImage.displayName = 'ProfileImage';
+
+export { ProfileImage }; 

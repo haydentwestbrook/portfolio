@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../Button/Button';
-import { Icon } from '../Icon/Icon';
+import Icon from '../Icon/Icon';
 
 interface CarouselNavigationProps {
   totalSlides: number;

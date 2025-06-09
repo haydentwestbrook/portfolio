@@ -4,7 +4,7 @@ import { ProjectCard } from '../ProjectCard/ProjectCard';
 import { Carousel } from '../Carousel/Carousel';
 import type { ProjectCard as ProjectCardType } from '../../types/ProjectCard';
 import { Button } from '../Button/Button';
-import { Icon } from '../Icon/Icon';
+import Icon from '../Icon/Icon';
 
 interface Project {
   title: string;
