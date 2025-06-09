@@ -3,7 +3,7 @@ import React from 'react';
 import type { ProjectCard } from '../../types/ProjectCard';
 
 interface ProjectProps {
-  project: Project;
+  project: ProjectCard;
 }
 
 const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
