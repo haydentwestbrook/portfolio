@@ -62,7 +62,7 @@ const isDev = import.meta.env.DEV;
         <ProfileImage
           imageUrl={headshot}
           altText="Hayden's profile picture"
-          client:visible
+          client:load
         />
         <h1 class="mt-4 sm:mt-6 md:mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
           Hayden Westbrook
@@ -93,15 +93,15 @@ const isDev = import.meta.env.DEV;
     </section>
 
     <section id="about" class="py-16 px-4 sm:px-6 lg:px-8">
-      <About client:visible />
+      <About client:load />
     </section>
 
     <section id="projects" class="py-16 px-4 sm:px-6 lg:px-8">
-      <ProjectList projects={projects} client:visible />
+      <ProjectList projects={projects} client:load />
     </section>
 
     <section id="contact" class="py-16 px-4 sm:px-6 lg:px-8">
-      <Contact data={contactData} client:visible />
+      <Contact data={contactData} client:load />
     </section>
   </main>
 </Layout>

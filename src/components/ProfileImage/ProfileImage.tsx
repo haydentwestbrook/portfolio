@@ -11,7 +11,6 @@ interface ProfileImageProps {
 export const ProfileImage: React.FC<ProfileImageProps> = ({
   imageUrl,
   altText,
-  size = '300px',
   className = ''
 }) => {
   // Generate srcset for different sizes if the image is imported
@@ -35,7 +34,6 @@ export const ProfileImage: React.FC<ProfileImageProps> = ({
           srcSet={srcSet}
           sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
           alt={altText}
-          loading="lazy"
           decoding="async"
           className="w-full h-full object-cover object-[center_10%]"
         />

@@ -33,8 +33,8 @@ export default defineConfig({
           }
         }
       },
-      minify: 'terser',
-      terserOptions: {
+      minify: isDev ? false : 'terser',
+      terserOptions: isDev ? undefined : {
         compress: {
           drop_console: true,
           drop_debugger: true,
@@ -60,7 +60,7 @@ export default defineConfig({
           beautify: false
         }
       },
-      sourcemap: false
+      sourcemap: isDev
     }
   },
   image: {
@@ -81,7 +81,7 @@ export default defineConfig({
     format: 'directory',
     // Enable asset optimization
     assets: 'assets',
-    // Disable source maps in production
-    sourcemap: false
+    // Enable source maps in development
+    sourcemap: isDev
   }
 });
