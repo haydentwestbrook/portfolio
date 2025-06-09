@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import CarouselSlide from '../CarouselSlide';
+import { CarouselSlide } from '../CarouselSlide';
 
 describe('CarouselSlide', () => {
   it('renders children content', () => {

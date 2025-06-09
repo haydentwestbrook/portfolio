@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import BlogList from '../BlogList';
+import { BlogList } from '../BlogList';
 import type { BlogPost } from '../../../types/Blog';
 
 const mockPosts: BlogPost[] = [

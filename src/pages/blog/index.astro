@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { formatDate } from '../../utils/date';
+
+let posts = [];
+try {
+  // Fetch all blog posts, excluding drafts
+  posts = (await getCollection('blog'))
+    .filter(post => !post.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+} catch (error) {
+  console.error('Error fetching blog posts:', error);
+}
+
+// Generate metadata for SEO
+const title = "Blog | Hayden Westbrook";
+const description = "Read my latest thoughts on software development, technology, and engineering.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<Layout 
+  title={title}
+  description={description}
+  canonicalURL={canonicalURL}
+>
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Blog</h1>
+      <p class="text-xl text-gray-600">
+        Thoughts on software development, technology, and engineering
+      </p>
+    </header>
+
+    {posts.length > 0 ? (
+      <div class="grid gap-8">
+        {posts.map(post => (
+          <article class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            {post.data.image && (
+              <div class="relative w-full aspect-video">
+                <img
+                  src={post.data.image}
+                  alt={post.data.title}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="hover:text-primary transition-colors"
+                >
+                  {post.data.title}
+                </a>
+              </h2>
+              <div class="flex items-center text-gray-600 mb-4">
+                {post.data.author && (
+                  <span class="mr-2">{post.data.author}</span>
+                )}
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {formatDate(post.data.pubDate)}
+                </time>
+              </div>
+              <p class="text-gray-600 mb-4">
+                {post.data.description}
+              </p>
+              {post.data.tags && post.data.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2">
+                  {post.data.tags.map((tag: string) => (
+                    <span
+                      class="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <a
+                href={`/blog/${post.slug}`}
+                class="inline-block mt-4 text-primary hover:text-primary-dark transition-colors"
+              >
+                Read more →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-12">
+        <p class="text-gray-600">No blog posts yet. Check back soon!</p>
+      </div>
+    )}
+  </main>
+</Layout> 

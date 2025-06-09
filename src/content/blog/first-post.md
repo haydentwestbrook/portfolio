@@ -1,10 +1,14 @@
 ---
 title: "My First Blog Post"
-description: "An introduction to my new blog!"
-pubDate: "2024-06-01"
+description: "Welcome to my first blog post where I share my thoughts on software development."
+pubDate: 2024-03-20T00:00:00.000Z
 author: "Hayden Westbrook"
-image: "https://placehold.co/800x400/1a365d/ffffff?text=First+Post"
-tags: ["introduction", "personal"]
+image: "/blog/first-post.jpg"
+tags: ["First Post", "Introduction"]
 ---
 
-Welcome to my blog! This is my first post using Astro's content collections.
+# Welcome to My Blog
+
+This is my first blog post. I'll be sharing my thoughts and experiences in software development, technology, and engineering.
+
+Stay tuned for more content!

@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import tailwindcss from "@tailwindcss/vite";
-import react from "@astrojs/react";
+import tailwind from '@astrojs/tailwind';
+import react from '@astrojs/react';
 
 // Determine if we're in development mode
 const isDev = process.env.NODE_ENV === 'development';
@@ -15,13 +15,20 @@ export default defineConfig({
     "/about": "/"
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwind()],
     // Add development-specific Vite config
     server: isDev ? {
       port: 3000,
       host: true,
       open: true
-    } : undefined
+    } : undefined,
+    optimizeDeps: {
+      exclude: ['@astrojs/markdown-remark']
+    }
   },
-  integrations: [react()],
+  integrations: [tailwind(), react()],
+  trailingSlash: 'never',
+  build: {
+    format: 'directory'
+  }
 });

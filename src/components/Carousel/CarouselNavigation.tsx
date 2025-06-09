@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '../Button/Button';
-import Icon from '../Icon/Icon';
+import { Button } from '../Button/Button';
+import { Icon } from '../Icon/Icon';
 
 interface CarouselNavigationProps {
   totalSlides: number;
@@ -84,4 +84,4 @@ const CarouselNavigation: React.FC<CarouselNavigationProps> = ({
   );
 };
 
-export default CarouselNavigation; 
+export { CarouselNavigation }; 

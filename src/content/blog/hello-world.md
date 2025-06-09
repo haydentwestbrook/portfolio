@@ -1,18 +1,22 @@
 ---
 title: "Hello World"
-description: "Welcome to my blog! This is my first post."
-pubDate: "2024-03-20"
+description: "A brief introduction to my journey in software development and what you can expect from this blog."
+pubDate: 2024-03-19T00:00:00.000Z
 author: "Hayden Westbrook"
+image: "/blog/hello-world.jpg"
+tags: ["Introduction", "Software Development"]
 ---
 
-Welcome to my blog! This is my first post. I'll be sharing my thoughts on software development, technology, and my journey as a developer.
+# Hello World
+
+Welcome to my blog! I'm excited to share my journey in software development with you.
 
 ## What to Expect
 
-In this blog, I'll be covering:
-- Software development best practices
-- Technology trends
-- Personal projects and experiences
-- Tips and tricks I've learned along the way
+In this blog, I'll be sharing:
+- My experiences in software development
+- Technical tutorials and guides
+- Project updates and insights
+- Industry trends and observations
 
-Stay tuned for more content! 
+Stay tuned for regular updates! 

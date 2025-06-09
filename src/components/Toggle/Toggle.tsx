@@ -6,7 +6,7 @@ interface ToggleProps {
   className?: string;
 }
 
-export default function Toggle({ onChange, initialValue = true, className = '' }: ToggleProps) {
+export function Toggle({ onChange, initialValue = true, className = '' }: ToggleProps) {
   const [isGrid, setIsGrid] = useState(initialValue);
 
   const handleToggle = () => {

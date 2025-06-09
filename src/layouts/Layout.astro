@@ -8,21 +8,71 @@ interface Props {
   title: string;
   description: string;
   canonicalURL?: URL;
+  image?: string;
+  type?: 'website' | 'article';
+  pubDate?: Date;
+  modifiedDate?: Date;
+  author?: string;
+  tags?: string[];
 }
 
-const { title, description, canonicalURL } = Astro.props;
+const {
+  title,
+  description,
+  canonicalURL,
+  image,
+  type = 'website',
+  pubDate,
+  modifiedDate,
+  author,
+  tags = []
+} = Astro.props;
+
+const siteTitle = "Hayden Westbrook";
+const fullTitle = `${title} | ${siteTitle}`;
+const defaultImage = new URL('/og-image.jpg', Astro.site).toString();
+const ogImage = image || defaultImage;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
+
+    <!-- Canonical URL -->
     {canonicalURL && <link rel="canonical" href={canonicalURL} />}
-    <title>{title}</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL?.toString() || Astro.url.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL?.toString() || Astro.url.href} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    <!-- Article specific meta tags -->
+    {type === 'article' && (
+      <>
+        {pubDate && <meta property="article:published_time" content={pubDate.toISOString()} />}
+        {modifiedDate && <meta property="article:modified_time" content={modifiedDate.toISOString()} />}
+        {author && <meta property="article:author" content={author} />}
+        {tags.map((tag) => <meta property="article:tag" content={tag} />)}
+      </>
+    )}
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body class="min-h-screen bg-background text-text">
     <SocialLinks client:load />

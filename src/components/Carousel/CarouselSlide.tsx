@@ -2,31 +2,30 @@ import React from 'react';
 
 interface CarouselSlideProps {
   children: React.ReactNode;
-  isActive: boolean;
   index: number;
+  slidesToShow: number;
   totalSlides: number;
+  isActive?: boolean;
 }
 
-const CarouselSlide: React.FC<CarouselSlideProps> = ({
+export const CarouselSlide: React.FC<CarouselSlideProps> = ({
   children,
-  isActive,
   index,
-  totalSlides
+  slidesToShow,
+  totalSlides,
+  isActive = false,
 }) => {
   return (
     <div
+      className={`flex-shrink-0 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'} h-full w-full transition-opacity duration-300`}
+      style={{
+        width: `${100 / slidesToShow}%`,
+      }}
       role="group"
       aria-roledescription="slide"
       aria-label={`Slide ${index + 1} of ${totalSlides}`}
-      className={`
-        h-full w-full
-        transition-opacity duration-300
-        ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-      `}
     >
       {children}
     </div>
   );
 };
-
-export default CarouselSlide;

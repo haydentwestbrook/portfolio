@@ -21,4 +21,4 @@ const BlogList: React.FC<BlogListProps> = ({ posts }) => {
   );
 };
 
-export default BlogList;
+export { BlogList };

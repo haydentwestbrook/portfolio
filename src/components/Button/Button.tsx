@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../Icon/Icon';
+import { Icon } from '../Icon/Icon';
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
@@ -71,4 +71,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button; 
+export { Button }; 

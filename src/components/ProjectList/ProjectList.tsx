@@ -1,7 +1,7 @@
 // src/components/ProjectList/ProjectList.tsx
 import React, { useState } from 'react';
 import { ProjectCard } from '../ProjectCard/ProjectCard';
-import Carousel from '../Carousel/Carousel';
+import { Carousel } from '../Carousel/Carousel';
 import type { ProjectCard as ProjectCardType } from '../../types/ProjectCard';
 
 interface ProjectListProps {
@@ -42,15 +42,13 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
         </div>
       ) : (
         <Carousel
-          slidesToShow={1}
-          slidesToScroll={1}
-          showArrows={true}
-          showIndicators={true}
-          gap={24}
-        >
-          {projects.map((project, index) => (
+          items={projects.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
+          slidesToShow={1}
+          showNavigation={true}
+          showIndicators={true}
+        >
         </Carousel>
       )}
     </div>
