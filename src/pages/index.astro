@@ -1,13 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navigation from '../components/Navigation/Navigation';
-import ProfileImage from '../components/ProfileImage/ProfileImage';
-import About from '../components/About/About';
-import ProjectList from '../components/ProjectList/ProjectList';
-import Contact from '../components/Contact/Contact';
+import { Navigation } from '../components/Navigation/Navigation';
+import { ProfileImage } from '../components/ProfileImage/ProfileImage';
+import { About } from '../components/About/About';
+import { ProjectList } from '../components/ProjectList/ProjectList';
+import { Contact } from '../components/Contact/Contact';
 import { getCollection } from 'astro:content';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
+import headshot from '../assets/headshot.jpg';
 
 // Fetch projects from content collection
 const projects = (await getCollection('projects')).map(entry => ({
@@ -64,9 +65,9 @@ const imageUrl = isDev
     <section id="hero" class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-4xl mx-auto">
         <ProfileImage
-          imageUrl="/headshot.jpg"
+          imageUrl={headshot}
           altText="Hayden's profile picture"
-          client:load
+          client:visible
         />
         <h1 class="mt-4 sm:mt-6 md:mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
           Hayden Westbrook
@@ -96,8 +97,16 @@ const imageUrl = isDev
       </div>
     </section>
 
-    <About client:load />
-    <ProjectList projects={projects} client:load />
-    <Contact data={contactData} client:load />
+    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8">
+      <About client:visible />
+    </section>
+
+    <section id="projects" class="py-16 px-4 sm:px-6 lg:px-8">
+      <ProjectList projects={projects} client:visible />
+    </section>
+
+    <section id="contact" class="py-16 px-4 sm:px-6 lg:px-8">
+      <Contact data={contactData} client:visible />
+    </section>
   </main>
 </Layout>

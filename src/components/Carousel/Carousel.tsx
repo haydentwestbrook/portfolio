@@ -12,76 +12,67 @@ interface CarouselProps {
 }
 
 export const Carousel: React.FC<CarouselProps> = ({
-  items = [],
+  items,
   slidesToShow = 1,
   autoPlay = false,
   interval = 5000,
   showNavigation = true,
-  showIndicators = true,
+  showIndicators = true
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(autoPlay);
-
   const totalSlides = items.length;
-  const maxIndex = Math.max(0, totalSlides - slidesToShow);
+  const maxIndex = totalSlides - slidesToShow;
 
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
-    if (isAutoPlaying && totalSlides > 0) {
-      intervalId = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
-      }, interval);
-    }
-
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [isAutoPlaying, totalSlides, interval]);
-
-  const handlePrevious = useCallback(() => {
-    if (isTransitioning || totalSlides === 0) return;
+  const goToSlide = useCallback((index: number) => {
+    if (index < 0 || index > maxIndex || isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlides) % totalSlides);
+    setActiveIndex(index);
     setTimeout(() => setIsTransitioning(false), 300);
-  }, [isTransitioning, totalSlides]);
+  }, [maxIndex, isTransitioning]);
 
-  const handleNext = useCallback(() => {
-    if (isTransitioning || totalSlides === 0) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
-    setTimeout(() => setIsTransitioning(false), 300);
-  }, [isTransitioning, totalSlides]);
+  const nextSlide = useCallback(() => {
+    goToSlide(activeIndex + 1);
+  }, [activeIndex, goToSlide]);
+
+  const prevSlide = useCallback(() => {
+    goToSlide(activeIndex - 1);
+  }, [activeIndex, goToSlide]);
 
   const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
     if (event.key === 'ArrowLeft') {
-      handlePrevious();
+      prevSlide();
     } else if (event.key === 'ArrowRight') {
-      handleNext();
+      nextSlide();
     }
-  }, [handlePrevious, handleNext]);
+  }, [prevSlide, nextSlide]);
 
-  if (totalSlides === 0) {
-    return null;
-  }
+  useEffect(() => {
+    if (!autoPlay) return;
+
+    const timer = setInterval(() => {
+      if (activeIndex === maxIndex) {
+        goToSlide(0);
+      } else {
+        nextSlide();
+      }
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [activeIndex, autoPlay, interval, maxIndex, goToSlide, nextSlide]);
 
   return (
-    <div
-      className="relative w-full overflow-hidden px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+    <div 
+      className="relative w-full overflow-hidden"
       role="region"
       aria-label="Carousel"
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-      <div
-        className="flex transition-transform duration-300 ease-in-out gap-6"
-        style={{
-          transform: `translateX(-${currentIndex * (100 / slidesToShow)}%)`,
-          width: `${(totalSlides * 100) / slidesToShow}%`,
-        }}
+      <div 
+        className="flex transition-transform duration-300 ease-in-out"
+        role="list"
+        aria-label="Slides"
       >
         {items.map((item, index) => (
           <CarouselSlide
@@ -89,21 +80,20 @@ export const Carousel: React.FC<CarouselProps> = ({
             index={index}
             slidesToShow={slidesToShow}
             totalSlides={totalSlides}
-            isActive={index >= currentIndex && index < currentIndex + slidesToShow}
+            isActive={index >= activeIndex && index < activeIndex + slidesToShow}
           >
             {item}
           </CarouselSlide>
         ))}
       </div>
-
-      {showNavigation && (
+      {(showNavigation || showIndicators) && (
         <CarouselNavigation
           totalSlides={totalSlides}
-          activeIndex={currentIndex}
+          activeIndex={activeIndex}
           isTransitioning={isTransitioning}
-          onPrevSlide={handlePrevious}
-          onNextSlide={handleNext}
-          onGoToSlide={setCurrentIndex}
+          onPrevSlide={prevSlide}
+          onNextSlide={nextSlide}
+          onGoToSlide={goToSlide}
           showArrows={showNavigation}
           showIndicators={showIndicators}
           slidesToShow={slidesToShow}

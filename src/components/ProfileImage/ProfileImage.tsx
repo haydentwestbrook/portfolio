@@ -1,18 +1,26 @@
 import React from 'react';
+import type { ImageMetadata } from 'astro';
 
 interface ProfileImageProps {
-  imageUrl: string;
+  imageUrl: string | ImageMetadata;
   altText: string;
   size?: string;
   className?: string;
 }
 
-const ProfileImage: React.FC<ProfileImageProps> = ({
+export const ProfileImage: React.FC<ProfileImageProps> = ({
   imageUrl,
   altText,
   size = '300px',
   className = ''
 }) => {
+  // Generate srcset for different sizes if the image is imported
+  const srcSet = typeof imageUrl === 'string' ? undefined : `
+    ${imageUrl.src.replace('.jpg', '-200.webp')} 200w,
+    ${imageUrl.src.replace('.jpg', '-300.webp')} 300w,
+    ${imageUrl.src.replace('.jpg', '-400.webp')} 400w
+  `;
+
   return (
     <div className="flex justify-center items-center w-full py-4 sm:py-6 md:py-8">
       <div 
@@ -23,13 +31,15 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
         }}
       >
         <img 
-          src={imageUrl}
+          src={typeof imageUrl === 'string' ? imageUrl : imageUrl.src}
+          srcSet={srcSet}
+          sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
           alt={altText}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover object-[center_10%]"
         />
       </div>
     </div>
   );
-};
-
-export default ProfileImage; 
+}; 

@@ -14,7 +14,7 @@ interface ContactProps {
   data: ContactData;
 }
 
-const Contact: React.FC<ContactProps> = ({ data }) => {
+export const Contact: React.FC<ContactProps> = ({ data }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -102,6 +102,4 @@ const Contact: React.FC<ContactProps> = ({ data }) => {
       </div>
     </section>
   );
-};
-
-export default Contact; 
+}; 

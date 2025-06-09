@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
+import assets from '@astrojs/assets';
 
 // Determine if we're in development mode
 const isDev = process.env.NODE_ENV === 'development';
@@ -24,11 +25,45 @@ export default defineConfig({
     } : undefined,
     optimizeDeps: {
       exclude: ['@astrojs/markdown-remark']
+    },
+    build: {
+      // Enable code splitting
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'ui-vendor': ['@headlessui/react', '@heroicons/react']
+          }
+        }
+      },
+      // Enable minification
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: !isDev,
+          drop_debugger: !isDev
+        }
+      }
     }
   },
-  integrations: [tailwind(), react()],
+  integrations: [
+    tailwind(),
+    react(),
+    assets({
+      // Enable image optimization
+      service: 'sharp',
+      // Configure image quality
+      quality: 80,
+      // Enable WebP conversion
+      format: ['webp']
+    })
+  ],
   trailingSlash: 'never',
   build: {
-    format: 'directory'
+    format: 'directory',
+    // Enable asset optimization
+    assets: 'assets',
+    // Enable source maps in development
+    sourcemap: isDev
   }
 });

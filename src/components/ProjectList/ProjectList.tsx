@@ -3,12 +3,24 @@ import React, { useState } from 'react';
 import { ProjectCard } from '../ProjectCard/ProjectCard';
 import { Carousel } from '../Carousel/Carousel';
 import type { ProjectCard as ProjectCardType } from '../../types/ProjectCard';
+import { Button } from '../Button/Button';
+import { Icon } from '../Icon/Icon';
 
-interface ProjectListProps {
-  projects: ProjectCardType[];
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  liveUrl?: string;
+  githubUrl?: string;
+  date: string;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+interface ProjectListProps {
+  projects: Project[];
+}
+
+export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   const [isGridView, setIsGridView] = useState(true);
 
   return (
@@ -45,7 +57,56 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           {isGridView ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
               {projects.map((project, index) => (
-                <ProjectCard key={index} project={project} />
+                <div
+                  key={index}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
+                >
+                  <div className="relative h-48">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900">
+                      {project.title}
+                    </h3>
+                    <p className="mt-2 text-gray-600">{project.description}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 text-sm bg-gray-100 text-gray-700 rounded"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-6 flex gap-4">
+                      {project.liveUrl && (
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          icon={<Icon name="external-link" size="sm" />}
+                          onClick={() => window.open(project.liveUrl, '_blank')}
+                        >
+                          Live Demo
+                        </Button>
+                      )}
+                      {project.githubUrl && (
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          icon={<Icon name="github" size="sm" />}
+                          onClick={() => window.open(project.githubUrl, '_blank')}
+                        >
+                          View Code
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           ) : (
@@ -65,5 +126,3 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     </section>
   );
 };
-
-export default ProjectList;

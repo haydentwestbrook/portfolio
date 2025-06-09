@@ -1,33 +1,46 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { BlogList } from '../BlogList';
-import type { BlogPost } from '../../../types/Blog';
 
-const mockPosts: BlogPost[] = [
+// Mock the date formatting to ensure consistent test results
+const mockDate = new Date('2024-03-20');
+const mockDate2 = new Date('2024-03-21');
+
+type ToLocaleDateStringFn = (this: Date, ...args: Parameters<Date['toLocaleDateString']>) => string;
+
+vi.spyOn(Date.prototype, 'toLocaleDateString').mockImplementation(function(this: Date) {
+  if (this.getTime() === mockDate.getTime()) {
+    return 'March 20, 2024';
+  }
+  if (this.getTime() === mockDate2.getTime()) {
+    return 'March 21, 2024';
+  }
+  return this.toLocaleDateString();
+} as ToLocaleDateStringFn);
+
+const mockPosts = [
   {
-    slug: 'test-post-1',
-    data: {
-      title: 'Test Post 1',
-      description: 'This is a test post',
-      pubDate: '2024-03-20',
-      author: 'Test Author',
-      image: 'https://example.com/image.jpg',
-      tags: ['test', 'blog']
-    }
+    title: 'Test Post 1',
+    description: 'This is a test post',
+    date: '2024-03-20',
+    slug: 'test-post-1'
   },
   {
-    slug: 'test-post-2',
-    data: {
-      title: 'Test Post 2',
-      description: 'Another test post',
-      pubDate: '2024-03-21',
-      author: 'Test Author',
-      tags: ['test']
-    }
+    title: 'Test Post 2',
+    description: 'Another test post',
+    date: '2024-03-21',
+    slug: 'test-post-2'
   }
 ];
 
 describe('BlogList', () => {
+  it('renders the section title and description', () => {
+    render(<BlogList posts={mockPosts} />);
+    
+    expect(screen.getByText('Latest Blog Posts')).toBeInTheDocument();
+    expect(screen.getByText('Thoughts, tutorials, and insights on software development')).toBeInTheDocument();
+  });
+
   it('renders a list of blog posts', () => {
     render(<BlogList posts={mockPosts} />);
     
@@ -43,27 +56,56 @@ describe('BlogList', () => {
     expect(screen.getByText('Another test post')).toBeInTheDocument();
   });
 
-  it('renders post metadata', () => {
+  it('renders formatted dates', () => {
     render(<BlogList posts={mockPosts} />);
     
-    // Check if dates and authors are rendered
-    expect(screen.getByText('2024-03-20 by Test Author')).toBeInTheDocument();
-    expect(screen.getByText('2024-03-21 by Test Author')).toBeInTheDocument();
+    // Check if dates are rendered in the correct format
+    const dateElements = screen.getAllByText(/March \d{1,2}, 2024/);
+    expect(dateElements).toHaveLength(2);
+    expect(dateElements[0]).toHaveTextContent('March 20, 2024');
+    expect(dateElements[1]).toHaveTextContent('March 21, 2024');
   });
 
-  it('creates correct links for each post', () => {
+  it('renders "Read More" buttons for each post', () => {
     render(<BlogList posts={mockPosts} />);
     
-    const links = screen.getAllByRole('link');
-    expect(links).toHaveLength(2);
-    expect(links[0]).toHaveAttribute('href', '/blog/test-post-1/');
-    expect(links[1]).toHaveAttribute('href', '/blog/test-post-2/');
+    const buttons = screen.getAllByText('Read More');
+    expect(buttons).toHaveLength(2);
   });
 
-  it('renders empty list when no posts are provided', () => {
+  it('navigates to the correct URL when clicking "Read More"', () => {
+    // Mock window.location
+    const mockLocation = { href: '' };
+    const originalLocation = window.location;
+    
+    // @ts-ignore - Mocking window.location for testing
+    window.location = mockLocation;
+
+    render(<BlogList posts={mockPosts} />);
+    
+    const buttons = screen.getAllByText('Read More');
+    fireEvent.click(buttons[0]);
+    
+    expect(window.location.href).toBe('/blog/test-post-1');
+
+    // Restore window.location
+    // @ts-ignore - Restoring original window.location
+    window.location = originalLocation;
+  });
+
+  it('renders empty grid when no posts are provided', () => {
     render(<BlogList posts={[]} />);
     
-    const list = screen.getByRole('list');
-    expect(list).toBeEmptyDOMElement();
+    const grid = screen.getByRole('grid');
+    expect(grid).toBeEmptyDOMElement();
+  });
+
+  it('applies hover effects to post cards', () => {
+    render(<BlogList posts={mockPosts} />);
+    
+    const cards = screen.getAllByRole('article');
+    cards.forEach(card => {
+      expect(card).toHaveClass('hover:scale-105');
+    });
   });
 }); 
