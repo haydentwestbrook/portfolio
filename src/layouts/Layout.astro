@@ -1,21 +1,32 @@
 ---
 import "../styles/global.css";
 import '../styles/theme.css';
+import Footer from '../components/Footer/Footer';
+import SocialLinks from '../components/SocialLinks/SocialLinks';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalURL?: URL;
+}
+
+const { title, description, canonicalURL } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>
-      Hayden Westbrook: Senior Software Engineer, Problem Solver, Writer of
-      elegant code.
-    </title>
+    <meta name="description" content={description} />
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    <title>{title}</title>
   </head>
-  <body class="bg-white text-gray-900 leading-relaxed">
+  <body class="min-h-screen bg-background text-text">
+    <SocialLinks client:load />
     <slot />
+    <Footer client:load />
   </body>
 </html>

@@ -2,122 +2,164 @@ import React, { useState, useCallback, useEffect } from 'react';
 import CarouselSlide from './CarouselSlide';
 import CarouselNavigation from './CarouselNavigation';
 
-interface CarouselProps {
-  children: React.ReactNode[];
-  showIndicators?: boolean;
-  showArrows?: boolean;
-  slidesToShow?: number;
-  slidesToScroll?: number;
-  gap?: number;
-  transitionDuration?: number;
+interface CarouselItem {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  liveUrl?: string;
+  githubUrl?: string;
 }
 
-const Carousel: React.FC<CarouselProps> = ({
-  children,
-  showIndicators = true,
-  showArrows = true,
-  slidesToShow = 1,
-  slidesToScroll = 1,
-  gap = 16,
-  transitionDuration = 300
-}) => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+interface CarouselProps {
+  items: CarouselItem[];
+}
 
-  const maxIndex = Math.max(0, children.length - slidesToShow);
+const Carousel: React.FC<CarouselProps> = ({ items }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const nextSlide = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setActiveIndex((current) => Math.min(current + slidesToScroll, maxIndex));
-    setTimeout(() => setIsTransitioning(false), transitionDuration);
-  }, [isTransitioning, slidesToScroll, maxIndex, transitionDuration]);
-
-  const prevSlide = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setActiveIndex((current) => Math.max(current - slidesToScroll, 0));
-    setTimeout(() => setIsTransitioning(false), transitionDuration);
-  }, [isTransitioning, slidesToScroll, transitionDuration]);
-
-  const goToSlide = useCallback((index: number) => {
-    if (isTransitioning || index === activeIndex) return;
-    setIsTransitioning(true);
-    setActiveIndex(Math.min(Math.max(index, 0), maxIndex));
-    setTimeout(() => setIsTransitioning(false), transitionDuration);
-  }, [activeIndex, isTransitioning, maxIndex, transitionDuration]);
-
-  // Keyboard navigation
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (isTransitioning) return;
-      
-      switch (e.key) {
-        case 'ArrowLeft':
-          prevSlide();
-          break;
-        case 'ArrowRight':
-          nextSlide();
-          break;
-        case 'Home':
-          goToSlide(0);
-          break;
-        case 'End':
-          goToSlide(maxIndex);
-          break;
-      }
-    };
+    if (!isAutoPlaying) return;
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [prevSlide, nextSlide, goToSlide, maxIndex, isTransitioning]);
+    const interval = setInterval(() => {
+      setCurrentIndex((current) => (current + 1) % items.length);
+    }, 5000);
 
-  // Calculate slide width based on number of slides to show
-  const slideWidth = `calc((100% - ${(slidesToShow - 1) * gap}px) / ${slidesToShow})`;
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, items.length]);
+
+  const handlePrevious = () => {
+    setIsAutoPlaying(false);
+    setCurrentIndex((current) => (current - 1 + items.length) % items.length);
+  };
+
+  const handleNext = () => {
+    setIsAutoPlaying(false);
+    setCurrentIndex((current) => (current + 1) % items.length);
+  };
+
+  const handleDotClick = (index: number) => {
+    setIsAutoPlaying(false);
+    setCurrentIndex(index);
+  };
 
   return (
-    <div className="relative" role="region" aria-roledescription="carousel" aria-label="Carousel">
-      <div 
-        className="relative overflow-hidden"
-        style={{ 
-          height: '400px',
-          padding: `0 ${gap / 2}px`
-        }}
-      >
-        <div 
-          className="flex transition-transform duration-300 ease-in-out h-full"
-          style={{ 
-            transform: `translateX(-${activeIndex * (100 / slidesToShow)}%)`,
-            gap: `${gap}px`,
-            transitionDuration: `${transitionDuration}ms`
-          }}
+    <div className="relative">
+      <div className="overflow-hidden rounded-lg">
+        <div
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {React.Children.map(children, (child, index) => (
-            <div style={{ width: slideWidth, flexShrink: 0 }}>
-              <CarouselSlide
-                isActive={index >= activeIndex && index < activeIndex + slidesToShow}
-                index={index}
-                totalSlides={children.length}
-              >
-                {child}
-              </CarouselSlide>
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="w-full flex-shrink-0"
+            >
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="relative h-96">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
+                    <p className="mb-4">{item.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {item.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-3 py-1 text-sm bg-white/20 backdrop-blur-sm rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex gap-4">
+                      {item.liveUrl && (
+                        <a
+                          href={item.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white hover:text-gray-200 transition-colors"
+                        >
+                          Live Demo
+                        </a>
+                      )}
+                      {item.githubUrl && (
+                        <a
+                          href={item.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white hover:text-gray-200 transition-colors"
+                        >
+                          GitHub
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
-      <CarouselNavigation
-        totalSlides={children.length}
-        activeIndex={activeIndex}
-        isTransitioning={isTransitioning}
-        onPrevSlide={prevSlide}
-        onNextSlide={nextSlide}
-        onGoToSlide={goToSlide}
-        showArrows={showArrows}
-        showIndicators={showIndicators}
-        slidesToShow={slidesToShow}
-        maxIndex={maxIndex}
-      />
+      {/* Navigation Buttons */}
+      <button
+        onClick={handlePrevious}
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-colors"
+        aria-label="Previous project"
+      >
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+      <button
+        onClick={handleNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-colors"
+        aria-label="Next project"
+      >
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+
+      {/* Dots */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {items.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handleDotClick(index)}
+            className={`w-2 h-2 rounded-full transition-colors ${
+              index === currentIndex ? 'bg-white' : 'bg-white/50'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 };
