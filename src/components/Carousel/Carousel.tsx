@@ -70,14 +70,14 @@ export const Carousel: React.FC<CarouselProps> = ({
 
   return (
     <div
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
       role="region"
       aria-label="Carousel"
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
       <div
-        className="flex transition-transform duration-300 ease-in-out"
+        className="flex transition-transform duration-300 ease-in-out gap-6"
         style={{
           transform: `translateX(-${currentIndex * (100 / slidesToShow)}%)`,
           width: `${(totalSlides * 100) / slidesToShow}%`,

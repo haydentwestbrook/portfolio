@@ -5,7 +5,6 @@ import ProfileImage from '../components/ProfileImage/ProfileImage';
 import About from '../components/About/About';
 import ProjectList from '../components/ProjectList/ProjectList';
 import Contact from '../components/Contact/Contact';
-import SocialLinks from '../components/SocialLinks/SocialLinks';
 import { getCollection } from 'astro:content';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
@@ -21,43 +20,17 @@ const projects = (await getCollection('projects')).map(entry => ({
   date: entry.data.date.toISOString().split('T')[0] // Format date as YYYY-MM-DD
 }));
 
-// Fetch contact data directly from markdown file
-let contactData;
-try {
-  const contactFilePath = join(process.cwd(), 'src', 'content', 'contact.md');
-  const contactFile = await readFile(contactFilePath, 'utf-8');
-  const frontmatter = contactFile.split('---')[1];
-  const data = Object.fromEntries(
-    frontmatter
-      .split('\n')
-      .filter(line => line.trim())
-      .map(line => {
-        const [key, ...values] = line.split(':');
-        return [key.trim(), values.join(':').trim()];
-      })
-  );
-  
-  contactData = {
-    title: data.title || 'Contact Information',
-    email: data.email || 'your.email@example.com',
-    location: data.location || 'Your Location',
-    github: data.github || 'https://github.com/yourusername',
-    linkedin: data.linkedin || 'https://linkedin.com/in/yourusername',
-    formTitle: data.formTitle || 'Get in Touch',
-    formDescription: data.formDescription || 'Feel free to reach out if you have any questions or opportunities.'
-  };
-} catch (error) {
-  console.warn('Error reading contact data:', error);
-  contactData = {
-    title: 'Contact Information',
-    email: 'your.email@example.com',
-    location: 'Your Location',
-    github: 'https://github.com/yourusername',
-    linkedin: 'https://linkedin.com/in/yourusername',
-    formTitle: 'Get in Touch',
-    formDescription: 'Feel free to reach out if you have any questions or opportunities.'
-  };
-}
+// Fetch contact data from content collection
+const contactEntry = await getCollection('contact');
+const contactData = contactEntry[0]?.data || {
+  title: 'Contact Information',
+  email: 'your.email@example.com',
+  location: 'Your Location',
+  github: 'https://github.com/yourusername',
+  linkedin: 'https://linkedin.com/in/yourusername',
+  formTitle: 'Get in Touch',
+  formDescription: 'Feel free to reach out if you have any questions or opportunities.'
+};
 
 // Generate metadata for SEO
 const title = "Hayden Westbrook - Portfolio";
@@ -87,23 +60,21 @@ const imageUrl = isDev
 >
   <Navigation client:load />
   
-  <main class="pt-16">
-    <section id="hero" class="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
+  <main class="pt-16 pb-[20rem]">
+    <section id="hero" class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-4xl mx-auto">
         <ProfileImage
           imageUrl="/headshot.jpg"
           altText="Hayden's profile picture"
-          size="400px"
           client:load
         />
-        <h1 class="mt-8 text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900">
-          Hayden
+        <h1 class="mt-4 sm:mt-6 md:mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
+          Hayden Westbrook
         </h1>
-        <p class="mt-4 text-xl sm:text-2xl text-gray-600">
-          Software Engineer
+        <p class="mt-2 sm:mt-3 md:mt-4 text-lg sm:text-xl md:text-2xl text-gray-600">
+          Full-stack Software Engineer
         </p>
-        <div class="mt-6 flex justify-center space-x-4">
-          <SocialLinks />
+        <div class="mt-4 sm:mt-5 md:mt-6 flex justify-center space-x-4">
           <a
             href="/blog"
             class="inline-flex items-center px-4 py-2 text-base font-medium text-primary hover:text-primary-dark transition-colors"
