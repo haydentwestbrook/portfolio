@@ -17,7 +17,7 @@ interface ProjectCardProps {
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="relative h-48">
           <img
             src={project.image}

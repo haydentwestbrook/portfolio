@@ -17,7 +17,7 @@ export const CarouselSlide: React.FC<CarouselSlideProps> = ({
 }) => {
   return (
     <div
-      className={`flex-shrink-0 ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'} h-full w-full transition-opacity duration-300 p-2`}
+      className="flex-shrink-0 h-full w-full p-2"
       style={{
         width: `${100 / slidesToShow}%`,
       }}

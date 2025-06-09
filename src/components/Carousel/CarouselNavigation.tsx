@@ -58,7 +58,7 @@ const CarouselNavigation: React.FC<CarouselNavigationProps> = ({
       )}
 
       {showIndicators && (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 px-2">
           {Array.from({ length: indicatorCount }).map((_, index) => (
             <Button
               key={index}
@@ -69,7 +69,7 @@ const CarouselNavigation: React.FC<CarouselNavigationProps> = ({
               aria-label={`Go to slide group ${index + 1}`}
               aria-current={index === currentGroup ? 'true' : undefined}
               className={`
-                w-4 h-4 rounded-full p-0
+                w-3 h-3 rounded-full p-0
                 ${index === currentGroup 
                   ? 'bg-primary scale-125 ring-4 ring-primary/20' 
                   : 'bg-gray-500 hover:bg-gray-600'

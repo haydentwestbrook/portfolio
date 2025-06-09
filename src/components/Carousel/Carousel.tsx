@@ -71,6 +71,10 @@ export const Carousel: React.FC<CarouselProps> = ({
     >
       <div 
         className="flex transition-transform duration-300 ease-in-out"
+        style={{
+          transform: `translateX(-${activeIndex * (100 / slidesToShow)}%)`,
+          width: `${(totalSlides * 100) / slidesToShow}%`
+        }}
         role="list"
         aria-label="Slides"
       >
@@ -80,7 +84,7 @@ export const Carousel: React.FC<CarouselProps> = ({
             index={index}
             slidesToShow={slidesToShow}
             totalSlides={totalSlides}
-            isActive={index >= activeIndex && index < activeIndex + slidesToShow}
+            isActive={true}
           >
             {item}
           </CarouselSlide>
