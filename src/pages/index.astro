@@ -1,38 +1,45 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { Content as About } from "../content/about.md";
-import { Content as Contact } from "../content/contact.md";
-import { Content as Projects } from "../content/projects.md";
-import ProjectList from "../components/ProjectList/ProjectList";
+import Layout from '../layouts/Layout.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
+import ProjectList from '../components/ProjectList/ProjectList';
+import HeroImage from '../components/HeroImage/HeroImage';
+import { Content as ProjectsContent, frontmatter as projectsData } from '../content/projects.md';
 
-// Define an array of projects
-const projects = [
-  {
-    name: "Project One",
-    description: "Description of Project One.",
-    link: "https://example.com/project-one",
-    image: "/images/project-one.jpg",
-  },
-  {
-    name: "Project Two",
-    description: "Description of Project Two.",
-    link: "https://example.com/project-two",
-    image: "/images/project-two.jpg",
-  },
-  // Add more projects as needed
-];
+const { projects } = projectsData;
 ---
 
-<Layout>
-  <main>
-    <section>
+<Layout title="Hayden Westbrook - Portfolio">
+  <main class="container mx-auto px-4 py-8">
+    <HeroImage 
+      imageUrl="https://placehold.co/1200x400/1a365d/ffffff?text=Hayden+Westbrook"
+      altText="Hayden Westbrook"
+      height="400px"
+      className="mb-16"
+      client:load
+    />
+
+    <section class="mb-16 text-center">
+      <h1 class="text-4xl font-bold text-primary mb-4">Hayden Westbrook</h1>
+      <p class="text-xl text-text-light">Software Developer & Engineer</p>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-6">About Me</h2>
       <About />
     </section>
-    <section>
+
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-6">Projects</h2>
+      <div class="prose prose-lg max-w-none mb-8">
+        <ProjectsContent />
+      </div>
       <ProjectList projects={projects} client:load />
     </section>
+
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-primary mb-6">Contact</h2>
+      <Contact />
+    </section>
   </main>
-  <aside>
-    <Contact />
-  </aside>
 </Layout>

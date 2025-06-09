@@ -1,0 +1,79 @@
+/* src/styles/theme.css */
+
+:root {
+  /* Colors */
+  --color-primary: #1a365d; /* Deep blue */
+  --color-secondary: #2d3748; /* Dark gray */
+  --color-accent: #e53e3e; /* Red */
+  --color-background: #ffffff; /* White */
+  --color-text: #1a202c; /* Dark text */
+  --color-text-light: #4a5568; /* Light text */
+  --color-border: #e2e8f0; /* Light border */
+
+  /* Typography */
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Georgia', serif;
+  --font-mono: 'Menlo', monospace;
+  --font-size-base: 16px;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+}
+
+/* Apply Tailwind classes for high contrast and professional look */
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-4);
+}
+
+.btn {
+  display: inline-block;
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 0.25rem;
+  font-weight: var(--font-weight-bold);
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--color-secondary);
+} 
