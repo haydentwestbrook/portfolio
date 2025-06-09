@@ -1,12 +1,12 @@
-// src/components/Project/Project.tsx
+// src/components/ProjectCard/ProjectCard.tsx
 import React from 'react';
-import type { ProjectCard } from '../../types/ProjectCard';
+import type { ProjectCard as ProjectCardType } from '../../types/ProjectCard';
 
 interface ProjectProps {
-  project: ProjectCard;
+  project: ProjectCardType;
 }
 
-const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
+export const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
   return (
     <article className="h-full">
       <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full flex flex-col">
@@ -62,5 +62,3 @@ const ProjectCard: React.FC<ProjectProps> = ({ project }) => {
     </article>
   );
 };
-
-export default ProjectCard;

@@ -1,0 +1,13 @@
+---
+import { getEntryBySlug } from "astro:content";
+const { slug } = Astro.params;
+const post = await getEntryBySlug("blog", slug);
+if (!post) return Astro.redirect("/404");
+---
+
+<article class="prose">
+  <h1>{post.data.title}</h1>
+  <p><em>{post.data.pubDate} by {post.data.author}</em></p>
+  <img src={post.data.image} alt={post.data.title} />
+  <post.Content />
+</article>

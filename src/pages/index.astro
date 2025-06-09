@@ -43,52 +43,45 @@ const imageUrl = isDev
   description={description}
   canonicalURL={canonicalURL}
 >
-  <main class="container mx-auto px-4 py-8">
+  <main class="w-full">
     <HeroImage 
       imageUrl={imageUrl}
       altText="Hayden Westbrook"
       height="400px"
-      className="mb-16"
+      className="w-full mb-16"
       client:visible
     />
 
-    <section class="mb-16 text-center">
-      <h1 class="text-4xl font-bold text-primary mb-4">Hayden Westbrook</h1>
-      <p class="text-xl text-text-light">Software Developer & Engineer</p>
-    </section>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section class="mb-16 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">Hayden Westbrook</h1>
+        <p class="text-xl md:text-2xl text-text-light">Software Developer & Engineer</p>
+      </section>
 
-    <section class="mb-16">
-      <h2 class="text-3xl font-bold text-primary mb-6">About Me</h2>
-      <About />
-    </section>
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">About Me</h2>
+        <About />
+      </section>
 
-    <section class="mb-16">
-      <h2 class="text-3xl font-bold text-primary mb-6">Projects</h2>
-      <ProjectList projects={projects} client:visible />
-    </section>
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">Projects</h2>
+        <ProjectList projects={projects} client:visible />
+      </section>
 
-    <section class="mb-16">
-      <h2 class="text-3xl font-bold text-primary mb-6">Contact</h2>
-      <Contact />
-    </section>
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">Contact</h2>
+        <Contact />
+      </section>
+
+      <section class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">Blog</h2>
+        <a href="/blog" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-secondary transition-colors">
+          <span>View Blog</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </section>
+    </div>
   </main>
 </Layout>
-
-<style>
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
-  }
-  .text-gradient {
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
-  }
-</style>
