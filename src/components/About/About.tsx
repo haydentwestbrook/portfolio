@@ -4,7 +4,12 @@ export const About: React.FC = () => {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">About Me</h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+            About Me
+          </h2>
+          <div className="mt-4 h-1 w-20 bg-primary mx-auto rounded-full"></div>
+        </div>
         <div className="prose prose-lg">
           <p>
             I'm a full-stack software engineer with a passion for building modern web applications.

@@ -38,7 +38,7 @@ export const Contact: React.FC<ContactProps> = ({ data }) => {
   };
 
   return (
-    <section id="contact" className="py-16 bg-gray-50">
+    <section id="contact" className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <div className="text-center mb-12">

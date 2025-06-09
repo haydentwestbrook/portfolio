@@ -6,9 +6,7 @@ import { About } from '../components/About/About';
 import { ProjectList } from '../components/ProjectList/ProjectList';
 import { Contact } from '../components/Contact/Contact';
 import { getCollection } from 'astro:content';
-import { readFile } from 'fs/promises';
-import { join } from 'path';
-import headshot from '../assets/headshot.jpg';
+import headshot from '../assets/headshot.webp';
 
 // Fetch projects from content collection
 const projects = (await getCollection('projects')).map(entry => ({
@@ -49,9 +47,6 @@ try {
 
 // Development-specific settings
 const isDev = import.meta.env.DEV;
-const imageUrl = isDev 
-  ? "https://placehold.co/1200x400/1a365d/ffffff?text=Development+Mode"
-  : "https://placehold.co/1200x400/1a365d/ffffff?text=Hayden+Westbrook";
 ---
 
 <Layout 
@@ -61,7 +56,7 @@ const imageUrl = isDev
 >
   <Navigation client:load />
   
-  <main class="pt-16 pb-[20rem]">
+  <main class="pt-16 pb-[16rem]">
     <section id="hero" class="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-4xl mx-auto">
         <ProfileImage

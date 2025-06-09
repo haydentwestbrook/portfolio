@@ -1,33 +1,30 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
-import assets from '@astrojs/assets';
+import tailwind from '@astrojs/tailwind';
 
 // Determine if we're in development mode
 const isDev = process.env.NODE_ENV === 'development';
 
 // https://astro.build/config
 export default defineConfig({
-  // Use localhost for development, your domain for production
-  site: isDev ? 'http://localhost:3000' : 'https://haydenwestbrook.com',
-  output: 'static',
-  redirects: {
-    "/about": "/"
-  },
+  integrations: [
+    react(),
+    tailwind()
+  ],
+  site: process.env.NODE_ENV === 'production' 
+    ? 'https://haydenwestbrook.com'
+    : 'http://localhost:3000',
   vite: {
-    plugins: [tailwind()],
-    // Add development-specific Vite config
-    server: isDev ? {
+    server: {
       port: 3000,
-      host: true,
-      open: true
-    } : undefined,
+      strictPort: true,
+      host: true
+    },
     optimizeDeps: {
       exclude: ['@astrojs/markdown-remark']
     },
     build: {
-      // Enable code splitting
       rollupOptions: {
         output: {
           manualChunks: {
@@ -36,34 +33,55 @@ export default defineConfig({
           }
         }
       },
-      // Enable minification
       minify: 'terser',
       terserOptions: {
         compress: {
-          drop_console: !isDev,
-          drop_debugger: !isDev
+          drop_console: true,
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info', 'console.debug', 'console.warn'],
+          passes: 2,
+          dead_code: true,
+          unsafe: true,
+          unsafe_arrows: true,
+          unsafe_comps: true,
+          unsafe_Function: true,
+          unsafe_math: true,
+          unsafe_methods: true,
+          unsafe_proto: true,
+          unsafe_regexp: true,
+          unsafe_undefined: true
+        },
+        mangle: {
+          toplevel: true,
+          safari10: true
+        },
+        format: {
+          comments: false,
+          beautify: false
         }
+      },
+      sourcemap: false
+    }
+  },
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+      config: {
+        quality: 80,
+        format: ['webp']
       }
     }
   },
-  integrations: [
-    tailwind(),
-    react(),
-    assets({
-      // Enable image optimization
-      service: 'sharp',
-      // Configure image quality
-      quality: 80,
-      // Enable WebP conversion
-      format: ['webp']
-    })
-  ],
+  output: 'static',
+  redirects: {
+    "/about": "/"
+  },
   trailingSlash: 'never',
   build: {
     format: 'directory',
     // Enable asset optimization
     assets: 'assets',
-    // Enable source maps in development
-    sourcemap: isDev
+    // Disable source maps in production
+    sourcemap: false
   }
 });
