@@ -3,10 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation/Navigation';
 import ProfileImage from '../components/ProfileImage/ProfileImage';
 import About from '../components/About/About';
-import Projects from '../components/Projects/Projects';
+import ProjectList from '../components/ProjectList/ProjectList';
 import Contact from '../components/Contact/Contact';
 import SocialLinks from '../components/SocialLinks/SocialLinks';
-import '../styles/theme.css';
 import { getCollection } from 'astro:content';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
@@ -127,7 +126,7 @@ const imageUrl = isDev
     </section>
 
     <About client:load />
-    <Projects projects={projects} client:load />
+    <ProjectList projects={projects} client:load />
     <Contact data={contactData} client:load />
   </main>
 </Layout>

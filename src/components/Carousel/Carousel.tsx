@@ -89,6 +89,7 @@ export const Carousel: React.FC<CarouselProps> = ({
             index={index}
             slidesToShow={slidesToShow}
             totalSlides={totalSlides}
+            isActive={index >= currentIndex && index < currentIndex + slidesToShow}
           >
             {item}
           </CarouselSlide>

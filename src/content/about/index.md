@@ -4,7 +4,7 @@ description: "Learn more about Hayden Westbrook, a passionate software developer
 image: "/images/profile.jpg"
 ---
 
-# About Me
+## About Me
 
 I'm Hayden Westbrook, a software developer passionate about creating elegant solutions to complex problems. With a strong foundation in both frontend and backend development, I strive to build applications that are not only functional but also provide an exceptional user experience.
 

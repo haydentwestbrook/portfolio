@@ -48,8 +48,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           slidesToShow={1}
           showNavigation={true}
           showIndicators={true}
-        >
-        </Carousel>
+        />
       )}
     </div>
   );
