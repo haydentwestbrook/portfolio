@@ -40,25 +40,17 @@ const ProfileImage = React.forwardRef<HTMLDivElement, ProfileImageProps>(({
   return (
     <div 
       ref={ref}
-      className="flex justify-center items-center w-full py-4 sm:py-6 md:py-8"
+      className={`relative rounded-full overflow-hidden border-4 border-primary shadow-xl transition-all duration-300 w-full h-full ${className}`}
       {...props}
     >
-      <div 
-        className={`relative rounded-full overflow-hidden border-4 border-primary shadow-xl transition-all duration-300 ${className}`}
-        style={{ 
-          width: 'clamp(200px, 50vw, 400px)',
-          height: 'clamp(200px, 50vw, 400px)'
-        }}
-      >
-        <img 
-          src={typeof imageUrl === 'string' ? imageUrl : imageUrl.src}
-          srcSet={srcSet}
-          sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
-          alt={altText}
-          decoding="async"
-          className="w-full h-full object-cover object-[center_10%]"
-        />
-      </div>
+      <img 
+        src={typeof imageUrl === 'string' ? imageUrl : imageUrl.src}
+        srcSet={srcSet}
+        sizes="(max-width: 640px) 200px, (max-width: 1024px) 300px, 400px"
+        alt={altText}
+        decoding="async"
+        className="w-full h-full object-cover object-[center_10%]"
+      />
     </div>
   );
 });

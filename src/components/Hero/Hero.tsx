@@ -10,19 +10,24 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
   return (
-    <section id="hero" className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-4xl mx-auto">
-        <ProfileImage
-          imageUrl={imageUrl}
-          altText={`${name}'s profile picture`}
-        />
-        <h1 className="mt-4 sm:mt-6 md:mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
+    <section 
+      id="hero" 
+      className="min-h-[calc(100vh-4rem)] w-full flex items-center justify-center px-4 sm:px-6 lg:px-8"
+    >
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center">
+        <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 mb-8">
+          <ProfileImage
+            imageUrl={imageUrl}
+            altText={`${name}'s profile picture`}
+          />
+        </div>
+        <h1 className="mt-6 sm:mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
           {name}
         </h1>
-        <p className="mt-2 sm:mt-3 md:mt-4 text-lg sm:text-xl md:text-2xl text-gray-600">
+        <p className="mt-3 sm:mt-4 text-lg sm:text-xl md:text-2xl text-gray-600">
           {title}
         </p>
-        <div className="mt-4 sm:mt-5 md:mt-6 flex justify-center space-x-4">
+        <div className="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4">
           <a
             href="/blog"
             className="inline-flex items-center px-4 py-2 text-base font-medium text-accent hover:text-accent/90 transition-colors"
