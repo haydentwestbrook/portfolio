@@ -18,7 +18,7 @@ describe('ProfileImage', () => {
   it('applies custom className', () => {
     const customClass = 'custom-class';
     render(<ProfileImage {...defaultProps} className={customClass} />);
-    const container = screen.getByAltText('Test profile image').parentElement;
+    const container = screen.getByAltText('Test profile image').parentElement?.parentElement;
     expect(container).toHaveClass(customClass);
   });
 
@@ -30,12 +30,12 @@ describe('ProfileImage', () => {
     expect(container).toHaveClass('relative', 'rounded-full', 'overflow-hidden', 'border-4', 'border-primary', 'shadow-xl', 'transition-all', 'duration-300');
   });
 
-  it('has responsive padding classes', () => {
+  it('has responsive wrapper styles', () => {
     render(<ProfileImage {...defaultProps} />);
     const wrapper = screen.getByAltText('Test profile image').parentElement?.parentElement;
     
-    // Check for responsive padding classes
-    expect(wrapper).toHaveClass('py-4', 'sm:py-6', 'md:py-8');
+    // Check for responsive wrapper classes
+    expect(wrapper).toHaveClass('flex', 'justify-center', 'items-center', 'w-full', 'h-full');
   });
 
   it('has responsive image styles', () => {
@@ -46,15 +46,12 @@ describe('ProfileImage', () => {
     expect(image).toHaveClass('w-full', 'h-full', 'object-cover', 'object-[center_10%]');
   });
 
-  it('applies clamp function for responsive sizing', () => {
+  it('fills container dimensions', () => {
     render(<ProfileImage {...defaultProps} />);
     const container = screen.getByAltText('Test profile image').parentElement;
     
-    // Check for clamp function in style
-    expect(container).toHaveStyle({
-      width: 'clamp(200px, 50vw, 400px)',
-      height: 'clamp(200px, 50vw, 400px)'
-    });
+    // Check for full width and height
+    expect(container).toHaveClass('w-full', 'h-full');
   });
 
   it('maintains aspect ratio', () => {

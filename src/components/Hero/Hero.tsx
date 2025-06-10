@@ -15,7 +15,7 @@ export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
       className="min-h-[calc(100vh-4rem)] w-full flex items-center justify-center px-4 sm:px-6 lg:px-8"
     >
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center">
-        <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 mb-8">
+        <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 mb-8 aspect-square">
           <ProfileImage
             imageUrl={imageUrl}
             altText={`${name}'s profile picture`}
