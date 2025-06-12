@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import { formatDate } from '../../utils/date';
 
@@ -87,13 +88,17 @@ const structuredData = {
         </div>
       </div>
 
+      <h1>{ image }</h1>
+
       {image && (
         <div class="relative w-full aspect-video mb-8 rounded-lg overflow-hidden">
-          <img
+          <Image
             src={image}
             alt={title}
-            class="w-full h-full object-cover"
-            loading="eager"
+            height={500}
+            width={500}
+            // class="w-full h-full object-cover"
+            // loading="eager"
           />
         </div>
       )}
