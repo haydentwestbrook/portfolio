@@ -1,227 +1,188 @@
 /* src/styles/theme.css */
 
 :root {
-  /* Colors */
-  --primary: 220 90% 20%; /* Deep blue */
-  --primary-foreground: 0 0% 100%;
-  --secondary: 220 13% 18%; /* Dark gray */
-  --secondary-foreground: 0 0% 100%;
-  --accent: 0 84% 60%; /* Red */
-  --accent-foreground: 0 0% 100%;
-  --background: 0 0% 100%;
-  --foreground: 220 13% 18%;
-  --muted: 220 13% 91%;
-  --muted-foreground: 220 13% 45%;
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --ring: 220 90% 20%;
-  --radius: 0.5rem;
-
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', monospace;
   --font-serif: 'Merriweather', Georgia, Cambria, 'Times New Roman', Times, serif;
 
-  /* Font Sizes */
-  --font-size-base: 1rem;
-  --font-size-sm: 0.875rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 1.875rem;
-  --font-size-4xl: 2.25rem;
-
-  /* Font Weights */
-  --font-weight-normal: 400;
-  --font-weight-bold: 700;
-
-  /* Spacing */
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-3: 0.75rem;
-  --spacing-4: 1rem;
-  --spacing-6: 1.5rem;
-  --spacing-8: 2rem;
-  --spacing-12: 3rem;
-  --spacing-16: 4rem;
+  /* Spacing - using rem for better scalability */
+  --spacing-xxs: 0.125rem;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 500ms cubic-bezier(0.4, 0, 0.6, 1);
 }
 
-/* Base styles */
 body {
   font-family: var(--font-sans);
-  color: hsl(var(--foreground));
-  line-height: 1.5;
-  background-color: hsl(var(--background));
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typography enhancements */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: var(--font-weight-bold);
+  font-weight: 600;
   line-height: 1.2;
-  margin-bottom: var(--spacing-6);
-  color: hsl(var(--foreground));
+  letter-spacing: -0.025em;
+  margin-top: 0;
 }
 
 h1 {
-  font-size: var(--font-size-4xl);
+  margin-bottom: var(--spacing-xl);
+  font-size: clamp(2rem, 5vw, 3rem);
 }
 
 h2 {
-  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-lg);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
 }
 
 h3 {
-  font-size: var(--font-size-2xl);
-  color: hsl(var(--primary));
-}
-
-h4 {
-  font-size: var(--font-size-xl);
-  color: hsl(var(--secondary));
+  margin-bottom: var(--spacing-md);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
 }
 
 p {
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--spacing-md);
+  max-width: 65ch;
 }
 
-/* Markdown content spacing */
 .prose {
   max-width: 65ch;
-  margin: 0 auto;
 }
 
 .prose h1,
 .prose h2,
 .prose h3,
 .prose h4 {
-  margin-top: var(--spacing-12);
-  margin-bottom: var(--spacing-6);
+  margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-lg);
+  scroll-margin-top: 6rem;
 }
 
 .prose p {
-  margin-bottom: var(--spacing-6);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.75;
 }
 
 .prose ul,
 .prose ol {
-  margin-bottom: var(--spacing-6);
-  padding-left: var(--spacing-6);
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-lg);
 }
 
 .prose li {
-  margin-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-xs);
+}
+
+.prose li::marker {
+  color: hsl(var(--primary));
 }
 
 .prose blockquote {
-  border-left: 4px solid hsl(var(--primary));
-  padding-left: var(--spacing-4);
-  margin-left: 0;
-  margin-right: 0;
+  border-left: 3px solid hsl(var(--primary));
+  padding-left: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
   font-style: italic;
   color: hsl(var(--muted-foreground));
+  background: hsl(var(--muted) / 0.3);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: 0 var(--radius) var(--radius) 0;
 }
 
 .prose code {
   font-family: var(--font-mono);
-  font-size: 0.9em;
-  padding: 0.2em 0.4em;
+  font-size: 0.875em;
+  padding: 0.2em 0.5em;
   background-color: hsl(var(--muted));
-  border-radius: var(--radius);
+  border-radius: calc(var(--radius) - 2px);
 }
 
 .prose pre {
-  background-color: hsl(var(--muted));
-  padding: var(--spacing-4);
+  background-color: hsl(var(--secondary));
+  padding: var(--spacing-lg);
   border-radius: var(--radius);
   overflow-x: auto;
+  margin: var(--spacing-lg) 0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
 
 .prose pre code {
   background-color: transparent;
   padding: 0;
+  color: inherit;
 }
 
-/* Animations */
+.prose a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.prose a:hover {
+  border-bottom-color: hsl(var(--primary));
+}
+
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@keyframes slideIn {
+@keyframes fadeInUp {
   from {
-    transform: translateY(20px);
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn var(--transition-slow) ease-out;
 }
 
-.animate-slide-in {
-  animation: slideIn 0.5s ease-out;
+.animate-fade-in-up {
+  animation: fadeInUp var(--transition-slow) ease-out;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--muted));
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground));
-  border-radius: 4px;
+  background: hsl(var(--muted-foreground) / 0.5);
+  border-radius: 5px;
+  border: 2px solid hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary));
 }
 
-/* Apply Tailwind classes for high contrast and professional look */
-body {
-  font-size: var(--font-size-base);
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: var(--spacing-6);
+::selection {
+  background-color: hsl(var(--primary) / 0.2);
+  color: hsl(var(--foreground));
 }
-
-a {
-  color: hsl(var(--accent));
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing-4);
-}
-
-.btn {
-  display: inline-block;
-  padding: var(--spacing-2) var(--spacing-4);
-  background-color: hsl(var(--primary));
-  color: white;
-  border-radius: var(--radius);
-  font-weight: var(--font-weight-bold);
-  transition: background-color 0.3s;
-}
-
-.btn:hover {
-  background-color: hsl(var(--secondary));
-} 
