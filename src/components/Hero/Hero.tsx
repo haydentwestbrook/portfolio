@@ -12,25 +12,25 @@ export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
   return (
     <section 
       id="hero" 
-      className="relative min-h-[calc(100vh-4rem)] w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12"
+      className="relative min-h-[calc(100vh-4rem)] w-full flex items-center justify-center px-6 sm:px-8 lg:px-12 py-20"
     >
-      <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center">
-        <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 mb-8 aspect-square rounded-full overflow-hidden shadow-2xl ring-4 ring-white ring-offset-4 ring-offset-gray-50">
+      <div className="w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center">
+        <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mb-8 aspect-square rounded-full overflow-hidden shadow-lg ring-1 ring-gray-200 dark:ring-gray-700">
           <ProfileImage
             imageUrl={imageUrl}
             altText={`${name}'s profile picture`}
           />
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
           {name}
         </h1>
-        <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-600 max-w-2xl">
+        <p className="mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-xl font-light">
           {title}
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <a
             href="/blog"
-            className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary bg-primary/10 hover:bg-primary/20 rounded-full transition-all duration-200"
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-all duration-200"
           >
             <svg
               className="h-4 w-4 mr-2"
@@ -49,7 +49,7 @@ export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
             href="https://github.com/haydenwestbrook"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-200"
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-all duration-200"
           >
             <svg
               className="h-4 w-4 mr-2"
@@ -64,7 +64,7 @@ export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
             href="https://linkedin.com/in/haydenwestbrook"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-full transition-all duration-200"
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-all duration-200"
           >
             <svg
               className="h-4 w-4 mr-2"
@@ -79,4 +79,4 @@ export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
       </div>
     </section>
   );
-}; 
+};

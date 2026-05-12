@@ -24,24 +24,26 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   const [isGridView, setIsGridView] = useState(true);
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 px-6 sm:px-8 lg:px-12 bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto">
         <div className="space-y-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
               Featured Projects
             </h2>
-            <div className="mt-4 h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            <div className="mt-4 h-px w-12 bg-gray-200 dark:bg-gray-700 mx-auto"></div>
           </div>
+          
           <div className="flex justify-end">
             <button
               onClick={() => setIsGridView(!isGridView)}
-              className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg hover:bg-primary/20 transition-colors mb-6"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              aria-label={isGridView ? 'Switch to carousel view' : 'Switch to grid view'}
             >
-              <span>{isGridView ? 'View as Carousel' : 'View as Grid'}</span>
+              <span>{isGridView ? 'Carousel' : 'Grid'}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-4 w-4"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -55,35 +57,35 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           </div>
 
           {isGridView ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {projects.map((project, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
+                  className="bg-white dark:bg-gray-800 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-200 hover:shadow-md"
                 >
-                  <div className="relative h-48">
+                  <div className="relative h-48 bg-gray-100 dark:bg-gray-900">
                     <img
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gray-900">
+                  <div className="p-4">
+                    <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                       {project.title}
                     </h3>
-                    <p className="mt-2 text-gray-600">{project.description}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{project.description}</p>
+                    <div className="mt-3 flex flex-wrap gap-1.5">
                       {project.technologies.map((tech, techIndex) => (
                         <span
                           key={techIndex}
-                          className="px-2 py-1 text-sm bg-gray-100 text-gray-700 rounded"
+                          className="px-2 py-0.5 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
-                    <div className="mt-6 flex gap-4">
+                    <div className="mt-4 flex gap-2">
                       {project.liveUrl && (
                         <Button
                           variant="primary"
