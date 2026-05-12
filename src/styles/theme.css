@@ -1,26 +1,28 @@
 /* src/styles/theme.css */
 
 :root {
-  /* Typography */
+  /* Typography - refined for architectural precision */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', monospace;
-  --font-serif: 'Merriweather', Georgia, Cambria, 'Times New Roman', Times, serif;
-
-  /* Spacing - using rem for better scalability */
-  --spacing-xxs: 0.125rem;
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-  --spacing-2xl: 3rem;
-  --spacing-3xl: 4rem;
   
-  /* Transitions */
+  /* Spacing - consistent 4px grid system */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  
+  /* Transitions - smooth and subtle */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: 500ms cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 body {
@@ -32,89 +34,85 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
   margin-top: 0;
 }
 
 h1 {
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-6);
   font-size: clamp(2rem, 5vw, 3rem);
 }
 
 h2 {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-5);
   font-size: clamp(1.5rem, 4vw, 2.25rem);
 }
 
 h3 {
-  margin-bottom: var(--spacing-md);
-  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  margin-bottom: var(--spacing-4);
+  font-size: clamp(1.125rem, 3vw, 1.375rem);
 }
 
 p {
-  margin-bottom: var(--spacing-md);
-  max-width: 65ch;
+  margin-bottom: var(--spacing-4);
+  max-width: 70ch;
 }
 
 .prose {
-  max-width: 65ch;
+  max-width: 70ch;
 }
 
 .prose h1,
 .prose h2,
 .prose h3,
 .prose h4 {
-  margin-top: var(--spacing-2xl);
-  margin-bottom: var(--spacing-lg);
-  scroll-margin-top: 6rem;
+  margin-top: var(--spacing-12);
+  margin-bottom: var(--spacing-6);
+  scroll-margin-top: 5rem;
 }
 
 .prose p {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-4);
   line-height: 1.75;
 }
 
 .prose ul,
 .prose ol {
-  margin-bottom: var(--spacing-md);
-  padding-left: var(--spacing-lg);
+  margin-bottom: var(--spacing-4);
+  padding-left: var(--spacing-6);
 }
 
 .prose li {
-  margin-bottom: var(--spacing-xs);
-}
-
-.prose li::marker {
-  color: hsl(var(--primary));
+  margin-bottom: var(--spacing-2);
 }
 
 .prose blockquote {
-  border-left: 3px solid hsl(var(--primary));
-  padding-left: var(--spacing-md);
-  margin: var(--spacing-lg) 0;
+  border-left: 2px solid hsl(var(--primary));
+  padding-left: var(--spacing-4);
+  margin: var(--spacing-6) 0;
   font-style: italic;
   color: hsl(var(--muted-foreground));
   background: hsl(var(--muted) / 0.3);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-4) var(--spacing-5);
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  padding: 0.2em 0.5em;
+  padding: 0.15em 0.4em;
   background-color: hsl(var(--muted));
   border-radius: calc(var(--radius) - 2px);
 }
 
 .prose pre {
   background-color: hsl(var(--secondary));
-  padding: var(--spacing-lg);
+  padding: var(--spacing-6);
   border-radius: var(--radius);
   overflow-x: auto;
-  margin: var(--spacing-lg) 0;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  margin: var(--spacing-6) 0;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
 }
 
 .prose pre code {
@@ -142,7 +140,7 @@ p {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -159,8 +157,8 @@ p {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -168,13 +166,12 @@ p {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.5);
-  border-radius: 5px;
-  border: 2px solid hsl(var(--background));
+  background: hsl(var(--muted-foreground) / 0.25);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary));
+  background: hsl(var(--muted-foreground) / 0.4);
 }
 
 :focus-visible {
@@ -183,6 +180,6 @@ p {
 }
 
 ::selection {
-  background-color: hsl(var(--primary) / 0.2);
+  background-color: hsl(var(--primary) / 0.15);
   color: hsl(var(--foreground));
 }

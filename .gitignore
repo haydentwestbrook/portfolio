@@ -1,45 +1,63 @@
-```
 # Dependencies
 node_modules/
 
 # Build artifacts
 dist/
 build/
+.next/
+.nuxt/
+public/dist/
 *.js.map
+*.ts.map
 
-# Logs and temp files
-*.log
-*.tmp
-
-# Environment
+# Environment variables
 .env
 .env.local
-*.env.*
+.env.*
 
 # Editors
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
+# Logs
 *.log
-.git/modules/
+
+# OS generated files
 .DS_Store
 Thumbs.db
-```
+
+# Coverage
+coverage/
+.nyc_output/
+istanbul/
+*.lcov
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store*
+._*
+
+# TypeScript/JavaScript specific
+*.bundle.js
+*.min.js
+*.d.ts
+
+# Astro specific
+.cache/
+.output/
+
+# Package manager lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Compiled CSS
+*.css.map
+
+# Cache directories
+.husky/
+.vercel/
+.netlify/

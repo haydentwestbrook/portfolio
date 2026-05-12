@@ -16,7 +16,7 @@ const projects = (await getCollection('projects')).map(entry => ({
   technologies: entry.data.technologies,
   liveUrl: entry.data.liveUrl,
   githubUrl: entry.data.githubUrl,
-  date: entry.data.date.toISOString().split('T')[0] // Format date as YYYY-MM-DD
+  date: entry.data.date.toISOString().split('T')[0]
 }));
 
 // Fetch contact data from content collection
@@ -53,24 +53,24 @@ try {
 >
   <Navigation client:load />
   
-  <main class="pt-16 pb-[16rem]">
+  <main class="pt-20">
     <Hero
       imageUrl={headshot}
       name="Hayden Westbrook"
       title="Full-stack Software Engineer"
-          client:load
-        />
+      client:load
+    />
 
-    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8">
+    <section id="about">
       <About client:load />
     </section>
 
-    <section id="projects" class="py-16 px-4 sm:px-6 lg:px-8">
-    <ProjectList projects={projects} client:load />
+    <section id="projects">
+      <ProjectList projects={projects} client:load />
     </section>
 
-    <section id="contact" class="py-16 px-4 sm:px-6 lg:px-8">
-    <Contact data={contactData} client:load />
+    <section id="contact">
+      <Contact data={contactData} client:load />
     </section>
   </main>
 </Layout>
