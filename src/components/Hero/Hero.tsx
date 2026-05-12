@@ -12,28 +12,28 @@ export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
   return (
     <section 
       id="hero" 
-      className="min-h-[calc(100vh-4rem)] w-full flex items-center justify-center px-4 sm:px-6 lg:px-8"
+      className="relative min-h-[calc(100vh-4rem)] w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12"
     >
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center">
-        <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 mb-8 aspect-square">
+        <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 mb-8 aspect-square rounded-full overflow-hidden shadow-2xl ring-4 ring-white ring-offset-4 ring-offset-gray-50">
           <ProfileImage
             imageUrl={imageUrl}
             altText={`${name}'s profile picture`}
           />
         </div>
-        <h1 className="mt-6 sm:mt-8 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900">
           {name}
         </h1>
-        <p className="mt-3 sm:mt-4 text-lg sm:text-xl md:text-2xl text-gray-600">
+        <p className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-600 max-w-2xl">
           {title}
         </p>
-        <div className="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <a
             href="/blog"
-            className="inline-flex items-center px-4 py-2 text-base font-medium text-accent hover:text-accent/90 transition-colors"
+            className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary bg-primary/10 hover:bg-primary/20 rounded-full transition-all duration-200"
           >
             <svg
-              className="h-5 w-5 mr-2"
+              className="h-4 w-4 mr-2"
               fill="none"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -49,10 +49,10 @@ export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
             href="https://github.com/haydenwestbrook"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 text-base font-medium text-accent hover:text-accent/90 transition-colors"
+            className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-200"
           >
             <svg
-              className="h-5 w-5 mr-2"
+              className="h-4 w-4 mr-2"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -64,10 +64,10 @@ export const Hero: React.FC<HeroProps> = ({ imageUrl, name, title }) => {
             href="https://linkedin.com/in/haydenwestbrook"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-4 py-2 text-base font-medium text-accent hover:text-accent/90 transition-colors"
+            className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-full transition-all duration-200"
           >
             <svg
-              className="h-5 w-5 mr-2"
+              className="h-4 w-4 mr-2"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
